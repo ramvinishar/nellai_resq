@@ -1,0 +1,226 @@
+/* ================================================= */
+/* 1. Splash Screen Container & EMBLEM OVERLAY (New BG Logic) */
+/* ================================================= */
+.splash-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Arial', sans-serif;
+    
+    /* NEW BACKGROUND GRADIENT: Light Blue Shades */
+    background: linear-gradient(180deg, #385d85 0%, #1c3654 100%); 
+    
+    /* 🚨 CRITICAL: EMBLEM OVERLAY STYLING 🚨 */
+    /* You MUST change this URL to your local path (e.g., url('/src/assets/tn_emblem.png')) */
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Government_of_Tamil_Nadu_Logo.svg/1024px-Government_of_Tamil_Nadu_Logo.svg.png');
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    
+    /* Color and Opacity for the Overlay Emblem */
+    filter: 
+        saturate(0.5) 
+        brightness(0.8) 
+        sepia(0.5) 
+        hue-rotate(200deg); 
+    opacity: 0.8; /* Keep opacity low but visible */
+}
+
+/* Add an inner div to hold the content with its own gradient overlay */
+.splash-content {
+    z-index: 10;
+    max-width: 400px;
+    width: 90%;
+    padding: 30px;
+    padding-top: 10vh;
+    text-align: center;
+    color: white;
+    
+    /* Apply a deep blue overlay to create contrast for text/figures */
+    background: rgba(20, 40, 70, 0.7); 
+    border-radius: 20px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+/* REMOVE the splash-bg-circle class definition if it exists, as it is now integrated. */
+
+/* ==================================== */
+/* 2. Text Styling */
+/* ==================================== */
+.splash-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+    color: #fff;
+    border-bottom: 3px solid #FF9933; 
+    display: inline-block;
+    padding-bottom: 3px;
+}
+
+.splash-tagline {
+    font-size: 1.1rem;
+    color: #a0c4ff;
+    margin-bottom: 60px;
+    font-weight: 400;
+}
+
+/* ================================================= */
+/* 3. Glassmorphism Logo Container & Emblem (Remains High Contrast) */
+/* ================================================= */
+/* Animation keyframe remains the same */
+@keyframes container-pulse {
+    0% { transform: scale(1); box-shadow: 0 0 15px rgba(50, 150, 255, 0.5); }
+    100% { transform: scale(1.02); box-shadow: 0 0 25px rgba(50, 150, 255, 0.8); }
+}
+
+.logo-runner-container {
+    position: relative;
+    width: 280px; 
+    height: 280px; 
+    margin: 0 auto 70px;
+    border-radius: 50%;
+    
+    /* GLASSMORPHISM EFFECT */
+    background: rgba(255, 255, 255, 0.1); 
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: container-pulse 4s ease-in-out infinite alternate;
+}
+@keyframes container-pulse {
+    0% { transform: scale(1); box-shadow: 0 0 15px rgba(50, 150, 255, 0.5); }
+    100% { transform: scale(1.02); box-shadow: 0 0 25px rgba(50, 150, 255, 0.8); }
+}
+
+.govt-logo-center {
+    width: 130px;
+    height: 130px;
+    /* Subtle animation on the logo */
+    animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+    from { transform: scale(1); opacity: 0.9; }
+    to { transform: scale(1.05); opacity: 1; }
+}
+
+.logo-glow {
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    background: radial-gradient(circle, rgba(50, 150, 255, 0.7) 0%, rgba(0,0,0,0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.6;
+}
+
+/* ==================================== */
+/* 5. Animated Figurines (Runners) */
+/* ==================================== */
+
+/* Animation for the running effect */
+@keyframes run {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); } /* More defined bounce */
+    100% { transform: translateY(0); }
+}
+
+.runner {
+    position: absolute;
+    width: 60px; /* Size to fit the 3D figures */
+    height: 60px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: run 0.6s ease-in-out infinite; /* Faster run animation */
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+/* PLACEHOLDERS: You must use images for the exact look */
+.runner-medical {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="20px">🏃‍♂️</text></svg>');
+}
+.runner-police {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="20px">👮</text></svg>');
+}
+/* Positioning the runners */
+.runner-left {
+    left: -10%; /* Position outside the glass circle slightly */
+    top: 50%; 
+    transform: translateY(-50%) rotateY(180deg);
+}
+.runner-right {
+    right: -10%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+/* ==================================== */
+/* 6. Features Grid & Skip Button */
+/* ==================================== */
+.feature-grid {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.feature-item {
+    text-align: center;
+    color: #a0c4ff;
+    font-size: 0.9rem;
+    width: 30%;
+}
+
+.feature-label {
+    margin-top: 5px;
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* Icon pulse animation */
+    animation: icon-pulse 1.5s infinite alternate; 
+    filter: drop-shadow(0 0 10px rgba(50, 150, 255, 0.7));
+}
+
+@keyframes icon-pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+/* Icon Placeholders (using custom icons via background image is best for production) */
+.icon-geo { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="20px">📍</text></svg>'); }
+.icon-ai { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="20px">🧠</text></svg>'); }
+.icon-alert { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="20px">🔔</text></svg>'); }
+
+
+.skip-button-container {
+    width: 100%;
+    text-align: right; 
+    margin-top: 20px;
+}
+
+.skip-button {
+    background-color: #FF9933; /* Saffron button */
+    color: #000;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    text-transform: uppercase;
+}
+
+.skip-button:hover {
+    background-color: #ffb86e;
+}
